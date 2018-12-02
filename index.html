@@ -3,16 +3,54 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
-<style>
-#div1{width:200px;height:200px;background:#FF0;z-index:2;position:relative;}
-#div2{width:200px;height:200px;background:red;position:absolute;top:170px;z-index:1;}
-</style>
+<script type="text/javascript">
+ 
+var websocket;
+ 
+// 首先判断是否 支持 WebSocket
+ if('WebSocket' in window) {
+     websocket = new WebSocket("ws://localhost:8080/websocket/888");
+ } else if('MozWebSocket' in window) {
+     websocket = new MozWebSocket("ws://localhost:8080/websocket/888");
+ } else {
+     websocket = new SockJS("http://localhost:8080/websocket/888");
+ }
+ 
+ // 打开连接时
+ websocket.onopen = function(evnt) {
+     console.log("  websocket.onopen  ");
+ };
+ 
+ // 收到消息时
+ websocket.onmessage = function(evnt) {
+     alert(evnt.data);
+ };
+ 
+ websocket.onerror = function(evnt) {
+     console.log("  websocket.onerror  ");
+ };
+ 
+ websocket.onclose = function(evnt) {
+     console.log("  websocket.onclose  ");
+ };
+ 
+ 
+function say(){
+	 //客户端主动发消息
+	 websocket.send(document.getElementById('msg').value);
+}
+ 
+</script>
 </head>
-
 <body>
+<<<<<<< HEAD
 <div id='div1'>为丰富</div>
 <div id='div2'> 废物范围</div>
 <div id='div2'> wfejwgijeg</div>
 <div id='div2'> 我风格u管合格后骨骼肌</div>
+=======
+<input type="text" value="" id="msg"><button onclick="say()">凤飞飞</button>
+>>>>>>> 920ace8b5e78fc9bed2e0c48c09c99702d50a7f1
 </body>
+
 </html>
